@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>reveal.js - The HTML Presentation Framework</title>
+
+        <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+        <meta name="author" content="Hakim El Hattab">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section>
+                    <h1>Who am I?</h1>
+                    <br/>
+                    <h2>Serge S. Koval</h2>
+                    <h2>@mrjoez</h2>
+                    <h2>http://github.com/mrjoes/</h2>
+                </section>
+
+                <section>
+                    <h1>Flask-Admin</h1>
+                    <br/>
+                    <h2>Simple</h2>
+                    <h2>Feature rich</h2>
+                    <h2>Extensible</h2>
+                </section>
+
+                <section>
+                    <h1>Batteries</h1>
+                    <br/>
+                    <h3>Foundation framework</h3>
+                    <h3>CRUD</h3>
+                    <h3>File management</h3>
+                </section>
+
+                <section>
+                    <h2>1. Create View</h2>
+                    <pre><code contenteditable>
+class MyAdminView(BaseView):
+    @expose()
+    def index(self):
+        url = url_for('.info', id=10)
+        self.render('index.html', url=url)
+
+    @expose('/info/&lt;int:id&gt;/')
+    def info(self, id):
+        self.render('info.html', id=id)
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>2. Plug it in</h2>
+                    <br/>
+                    <pre><code contenteditable>
+app = Flask(__name__)
+
+admin = Admin(app)
+admin.add_view(MyAdminView(name='Hello'))
+                        </code></pre>
+                </section>
+
+                <section>
+                    <h1>3. Profit!</h1>
+                    <br/>
+                    <img src="images/flask-admin/quickstart_2.png" />
+                </section>
+
+                <section>
+                    <h2>CRUD</h2>
+                    <pre>
+                        <code contenteditable>
+class ModelView(BaseView):
+    def __init__(self, model, session):
+        # ... scaffolding happens here ...
+
+    @expose()
+    def list_view(self):
+        # ... request data from database
+        self.render('model/list.html', ...)
+
+    @expose('/create/')
+    def create_view(self):
+        # ... construct form
+        self.render('model/edit.html', ...)
+                        </pre></code>
+                </section>
+
+                <section>
+                    <h1>CRUD features</h1>
+                    <br/>
+                    <ul>
+                        <li>Highly configurable</li>
+                        <li>SQLAlchemy and Peewee</li>
+                        <li>Sorting, filters, search</li>
+                        <li>Inline model admin</li>
+                        <li>Mass model actions</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Result</h2>
+                    <br/>
+                    <img src="images/flask-admin/models.png" />
+                </section>
+
+                <section>
+                    <h1>Future</h1>
+                    <br/>
+                    <h3>MongoDB backend</h3>
+                    <h3>CRUD even more configurable</h3>
+                    <h3>... ?</h3>
+                </section>
+
+                <section>
+                    <h1>Where?</h1>
+                    <br/>
+                    <h3><a href="http://github.com/mrjoes/flask-admin/">http://github.com/mrjoes/flask-admin/</a></h3>
+                </section>
+
+                <!-- SockJS -->
+                <section>
+                    <h1>SockJS-Tornado</h1>
+                </section>
+
+                <section>
+                    <h1>Why not Socket.IO</h1>
+                    <br/>
+                    <h3>Unreliable</h3>
+                    <h3>Untested</h3>
+                    <h3>Unsupported</h3>
+                    <h3>Custom API</h3>
+                </section>
+
+                <section>
+                    <h2>1. Unreliable</h2>
+                    <br/>
+                    <h3>Opera</h3>
+                    <h3>Antiviruses</h3>
+                    <h3>Firewalls</h3>
+                    <h3>Flash transport</h3>
+                </section>
+
+                <section>
+                    <h2>2. Untested</h2>
+                    <br/>
+                    <h3>Race conditions</h3>
+                    <h3>Bad protocol documentation</h3>
+                    <h3>Unimplemented features</h3>
+                </section>
+
+                <section>
+                    <h2>3. Unsupported</h2>
+                    <br/>
+                    <h4>socket.io-node</h3>
+                    <h3>348 open tickets, 50 pull requests</h3>
+                    <br/>
+                    <h4>socket.io client</h3>
+                    <h3>139 open tickets, 34 pull requests</h3>
+                </section>
+
+                <section>
+                    <h2>4. Custom API</h2>
+                    <br/>
+                    <h3>High level</h3>
+                    <h3>Forces certain patterns</h3>
+                    <h3>Vendor lock</h3>
+                </section>
+
+                <section>
+                    <h1>Meet SockJS</h1>
+                    <br/>
+                    <h3>Websocket API</h3>
+                    <h3>From RabbitMQ team</h3>
+                    <h3>Works!</h3>
+                </section>
+
+                <section>
+                    <h2>API</h2>
+                    <br/>
+                    <h3>Websocket object</h3>
+                    <h3>Lesser vendor dependency</h3>
+                    <h3>Strings over the wire</h3>
+                </section>
+
+                <section>
+                    <h2>Stability<h2>
+                    <br/>
+                    <h3>Protocol tests</h3>
+                    <h3>Client tests</h3>
+                    <h3>Works everywhere (IE6! Opera!)</h3>
+                </section>
+
+                <section>
+                    <h2>Servers</h3>
+                    <br/>
+                    <h3>Node.js</h3>
+                    <h3>Erlang</h3>
+                    <h3>Vert.x (Java)</h3>
+                    <h3>Tornado (Python)</h3>
+                    <h3>Twisted (Python)</h3>
+                    <h3>Gevent (Python, unfinished)</h3>
+                    <h3>...</h3>
+                </section>
+
+                <section>
+                    <h1>SockJS-Tornado</h1>
+                    <br/>
+                    <h3>Fast</h3>
+                    <h3>Compliant</h3>
+                    <h3>Compatible</h3>
+                </section>
+
+                <section>
+                    <h1>Where?</h1>
+                    <br/>
+                    <h3><a href="http://github.com/mrjoes/sockjs-tornado/">http://github.com/mrjoes/sockjs-tornado</a></h3>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+        <script>
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: false,
+                progress: true,
+                history: true,
+
+                theme: 'beige', // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+        </script>
+
+    </body>
+</html>
