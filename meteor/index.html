@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Meteor Talk</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Meteor Framework</h1>
+					<h3>What, Why, Wat</h3>
+				</section>
+
+				<section>
+					<h3>High-level Architecture</h3>
+					<img style="padding: 8px; background-color: white" src="img/architecture.png">
+				</section>
+
+				<section>
+					<h3>It's Real-time</h3>
+					<ul>
+						<li>Collection Synchronization</li>
+						<li>Reactive data sources</li>
+						<li>Reactive templates</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>The Good</h3>
+					<ul>
+						<li>Looks cool</li>
+						<li>Might be good for certain types of apps</li>
+						<li>Fibers on the server (no callbacks, yay!)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>The Bad</h3>
+					<ul>
+						<li>Always connected</li>
+						<li>Collection sync</li>
+						<li>Reactivity</li>
+						<li>Minimongo</li>
+						<li>Client</li>
+						<li>Server</li>
+						<li>Performance</li>
+						<li>Ecosystem</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Always Connected</h3>
+					<ol>
+						<li>Meteor applications are not crawlable</li>
+						<li>No server-side templates</li>
+						<li>Headless webkit on the server to render pages (duh)</li>
+					</ol>
+				</section>
+
+				<section>
+					<h3>Collection synchronization</h3>
+					<ol>
+						<li>Paging not possible without ugly hacks</li>
+						<li>Limited API</li>
+						<li>No rate limiting</li>
+						<li>Wasted bandwidth (mobile anyone?)</li>
+					</ol>
+				</section>
+
+				<section>
+					<h3>Reactivity</h3>
+					<ol>
+						<li>Feels bolted-on in both client and server</li>
+						<li>Mongo is not reactive - polling all the way</li>
+					</ol>
+				</section>
+
+				<section>
+					<h3>Minimongo</h3>
+					<ol>
+						<li>No indexes</li>
+						<li>No aggregations</li>
+						<li>No map-reduce</li>
+						<li>Slooooow</li>
+					</ol>
+				</section>
+
+				<section>
+					<h3>Client</h3>
+					<ol>
+						<li>Flat variables namespace (Meteor.session)</li>
+						<li>Flat templates namespace (Meteor.templates)</li>
+						<li>No built-in routing</li>
+						<li>No two-way data-binding</li>
+						<li>Handlebars are too logic-less</li>
+					</ol>
+				</section>
+
+				<section>
+					<h3>Client: Continued</h3>
+					<ol>
+						<li>Meteor.autorun() handle leaking</li>
+						<li>Meteor-router double view triggering</li>
+						<li>Lots of special cases in templates</li>
+					</ol>
+				</section>
+
+				<section>
+					<h3>Server</h3>
+					<ol>
+						<li>Flat methods namespace (Meteor.methods)</li>
+						<li>Ain't fast (minimongo + reactivity)</li>
+						<li>No command-like API (no scripts!)</li>
+						<li>No server-side templates</li>
+					</ol>
+				</section>
+
+				<section>
+					<h3>Performance</h3>
+					<ol>
+						<li>200 req/s on aws large for REST API</li>
+						<li>3s Chrome DOM lockup with 8k items in collection on Core i7</li>
+						<li>So much faster without minimongo</li>
+					</ol>
+				</section>
+
+				<section>
+					<h3>Ecosystem</h3>
+					<ol>
+						<li>Own package manager</li>
+						<li>Didn't play nice with npm</li>
+						<li>Not too many different extensions</li>
+					</ol>
+				</section>
+
+				<section>
+					<h4>Real experience</h4>
+					<h3>Talkalytics</h3>
+					<ol>
+						<li>Customers</li>
+						<li>Orders</li>
+						<li>Real-time analytics</li>
+					</ol>
+				</section>
+
+				<section>
+					<h3>Problems</h3>
+					<ol>
+						<li>Horrible client-side and server-side performance</li>
+						<li>Amount of data during initial sync</li>
+						<li>Browser DOM lockups</li>
+						<li>Mobile clients were dying</li>
+					</ol>
+				</section>
+
+				<section>
+					<h3>Changes</h3>
+					<ol>
+						<li>Got rid of collection synchronization</li>
+						<li>REST-like API to work with data</li>
+						<li>Client was dumbed down, minimongo not used</li>
+						<li>Used MongoDB directly</li>
+						<li>Reactivity is reduced to bare minimum</li>
+					</ol>
+				</section>
+
+				<section>
+					<h3>Conclusions</h3>
+					<ol>
+						<li>Meteor is not mature</li>
+						<li>Meteor is slow</li>
+						<li>Meteor is not for mobile</li>
+						<li>Meteor is not search engine friendly</li>
+						<li>Meteor does not work if you have data</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Questions?</h2>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: "serif",
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
