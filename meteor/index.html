@@ -98,10 +98,29 @@
 				</section>
 
 				<section>
+					<h3>Bad API example</h3>
+					<pre><code>// Keep track of how many administrators are online.
+var count = 0;
+var query = Users.find({admin: true, onlineNow: true});
+var handle = query.observeChanges({
+  added: function (id, user) {
+    count++;
+    console.log(user.name + " brings the total to " + count + " admins.");
+  },
+  removed: function () {
+    count--;
+    console.log("Lost one. We're now down to " + count + " admins.");
+  }
+});
+</code></pre>
+				</section>
+
+				<section>
 					<h3>Reactivity</h3>
 					<ol>
 						<li>Feels bolted-on in both client and server</li>
 						<li>Mongo is not reactive - polling all the way</li>
+						<li>Using non-reactive templating engine feels awkward</li>
 					</ol>
 				</section>
 
@@ -122,8 +141,17 @@
 						<li>Flat templates namespace (Meteor.templates)</li>
 						<li>No built-in routing</li>
 						<li>No two-way data-binding</li>
-						<li>Handlebars are too logic-less</li>
+						<li>Unstable DOM</li>
+						<li>Slow</li>
 					</ol>
+				</section>
+
+				<section>
+					<h3>Meteor.session</h3>
+					<pre><code>
+		 Meteor.session.set('mymodule.submod.value', 10);
+					</code></pre>
+					<img width="240" src="img/stringly.jpg"></img>
 				</section>
 
 				<section>
@@ -136,21 +164,31 @@
 				</section>
 
 				<section>
+					<h3>Client: Slow</h3>
+					<ol>
+						<li>Reactive updates re-render whole template</li>
+						<li>Need to put hints everywhere to isolate contexts</li>
+						<li>Minimongo is not fast either</li>
+					</ol>
+				</section>
+
+				<section>
 					<h3>Server</h3>
 					<ol>
 						<li>Flat methods namespace (Meteor.methods)</li>
-						<li>Ain't fast (minimongo + reactivity)</li>
+						<li>Ain't fast (minimongo + reactivity = bottleneck)</li>
 						<li>No command-like API (no scripts!)</li>
 						<li>No server-side templates</li>
+						<li>Slow restart cycle</li>
 					</ol>
 				</section>
 
 				<section>
 					<h3>Performance</h3>
 					<ol>
-						<li>200 req/s on aws large for REST API</li>
-						<li>3s Chrome DOM lockup with 8k items in collection on Core i7</li>
-						<li>So much faster without minimongo</li>
+						<li>600 req/s on AWS large for REST API</li>
+						<li>3 second Chrome DOM lockup with 12k items in collection on Core i7</li>
+						<li>Any data manipulation on client is big no-no</li>
 					</ol>
 				</section>
 
@@ -158,7 +196,7 @@
 					<h3>Ecosystem</h3>
 					<ol>
 						<li>Own package manager</li>
-						<li>Didn't play nice with npm</li>
+						<li>Didn't play nice with npm before, had to wrap into own packages</li>
 						<li>Not too many different extensions</li>
 					</ol>
 				</section>
@@ -177,7 +215,7 @@
 					<h3>Problems</h3>
 					<ol>
 						<li>Horrible client-side and server-side performance</li>
-						<li>Amount of data during initial sync</li>
+						<li>Amount of data during initial sync is overwhelming</li>
 						<li>Browser DOM lockups</li>
 						<li>Mobile clients were dying</li>
 					</ol>
@@ -195,13 +233,24 @@
 				</section>
 
 				<section>
+					<h3>TLDR</h3>
+					<ol>
+						<li>Minimongo out</li>
+						<li>Reactivity out</li>
+						<li>Left with Backbone-like app on top of Meteor</li>
+						<li>Still share always-connected app shortcomings</li>
+					</ol>
+				</section>
+
+				<section>
 					<h3>Conclusions</h3>
 					<ol>
 						<li>Meteor is not mature</li>
 						<li>Meteor is slow</li>
 						<li>Meteor is not for mobile</li>
 						<li>Meteor is not search engine friendly</li>
-						<li>Meteor does not work if you have data</li>
+						<li>Core features don't work well if you have data</li>
+						<li>No control</li>
 					</ol>
 				</section>
 
